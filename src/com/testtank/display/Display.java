@@ -12,10 +12,17 @@ public abstract class Display {
         if(created)
             return;
         window = new JFrame(title);
-        content = new Canvas();
+        content = new Canvas() {
+
+            public  void paint(Graphics g){
+                super.paint(g);
+                render(g);
+            }
+        };
 
         Dimension size = new Dimension(width, height);
         content.setPreferredSize(size);
+        content.setBackground(Color.BLACK);
 
         window.setResizable(false);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,5 +30,13 @@ public abstract class Display {
         window.pack();
         window.setVisible(true);
         window.setLocationRelativeTo(null);
+    }
+
+    public static void render(){
+        content.repaint();
+    }
+    private static void render(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillOval(400-50,300-50,100,100);
     }
 }
